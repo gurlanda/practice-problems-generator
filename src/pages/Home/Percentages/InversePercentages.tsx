@@ -237,7 +237,8 @@ const InversePercentages: React.FC<{}> = () => {
       instructions={
         <p>
           Solve for <VariableColor>x</VariableColor> by dividing both sides by{' '}
-          <PercentageColor>{percentage / 100}</PercentageColor> to get the{' '}
+          <PercentageColor>{percentage / 100}</PercentageColor>. This value of{' '}
+          <VariableColor>x</VariableColor> is the{' '}
           <AnswerColor>answer</AnswerColor>.
         </p>
       }
