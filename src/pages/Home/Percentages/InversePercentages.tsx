@@ -1,6 +1,8 @@
 import React, { ReactNode, useState } from 'react';
 import styledSpanFactory from '../../../components/styledSpanFactory';
 import SolutionStep from '../../../components/SolutionStep';
+import Fraction from '../../../components/math/Fraction';
+import Equation from '../../../components/math/Equation';
 
 /**
  * Return a formatted percentage string.
@@ -70,18 +72,6 @@ const InversePercentages: React.FC<{}> = () => {
 
   const inversePercentage = 1 / (percentage / 100);
   const answer = rounded(wholeQuantity * inversePercentage, 2);
-
-  const percentageColor = 'text-red-500';
-  const PercentageColor = styledSpanFactory(percentageColor);
-
-  const wholeQuantityColor = 'text-green-500';
-  const WholeQuantityColor = styledSpanFactory(wholeQuantityColor);
-
-  const variableColor = 'text-orange-500';
-  const VariableColor = styledSpanFactory(variableColor);
-
-  const answerColor = 'text-cyan-600';
-  const AnswerColor = styledSpanFactory(answerColor);
 
   /**
    * Generates the text used in the answer button.
@@ -165,6 +155,21 @@ const InversePercentages: React.FC<{}> = () => {
     setNumberOfStepsShown(nextNumStepsShown);
   }
 
+  const percentageColor = 'text-red-500';
+  const PercentageColor = styledSpanFactory(percentageColor);
+
+  const wholeQuantityColor = 'text-green-500';
+  const WholeQuantityColor = styledSpanFactory(wholeQuantityColor);
+
+  const variableColor = 'text-orange-500';
+  const VariableColor = styledSpanFactory(variableColor);
+
+  const answerColor = 'text-cyan-600';
+  const AnswerColor = styledSpanFactory(answerColor);
+
+  const multiplicationColor = 'text-purple-500';
+  const MultiplicationColor = styledSpanFactory(multiplicationColor);
+
   const stepOne = (
     <SolutionStep
       stepNumber={1}
@@ -189,39 +194,110 @@ const InversePercentages: React.FC<{}> = () => {
       stepNumber={2}
       instructions={
         <p>
-          Multiply this <PercentageColor>new decimal</PercentageColor> by the{' '}
-          <WholeQuantityColor>other number</WholeQuantityColor> to get the{' '}
-          <AnswerColor>answer</AnswerColor>.
+          Convert the question to an equation you can solve.
+          <br />
+          <br />
+          If you see the phrase "
+          <em>
+            <PercentageColor>Percent</PercentageColor>
+          </em>{' '}
+          <MultiplicationColor>of</MultiplicationColor>{' '}
+          <VariableColor>what number</VariableColor>," then you are{' '}
+          <MultiplicationColor>multiplying</MultiplicationColor> the{' '}
+          <PercentageColor>percentage (as a decimal)</PercentageColor> with an{' '}
+          <VariableColor>unknown number</VariableColor>. To represent the{' '}
+          <VariableColor>unknown number</VariableColor>, you can use a variable
+          like <VariableColor>x</VariableColor>.
+          <br />
+          <br />
+          Set the multiplication equal to the{' '}
+          <WholeQuantityColor>other number</WholeQuantityColor>.
+          <br />
         </p>
       }
       calculation={
         <p className=" text-center pt-2">
-          <PercentageColor>{percentage / 100}</PercentageColor>{' '}
-          <i className="fa-solid fa-xmark"></i>{' '}
-          <WholeQuantityColor>{wholeQuantity}</WholeQuantityColor>{' '}
-          <i className="fa-solid fa-equals"></i>{' '}
-          <AnswerColor>{answer}</AnswerColor>
+          <Equation
+            leftSide={
+              <span>
+                <PercentageColor>{percentage / 100}</PercentageColor>
+                <VariableColor>x</VariableColor>
+              </span>
+            }
+            rightSide={<WholeQuantityColor>{wholeQuantity}</WholeQuantityColor>}
+          />
         </p>
       }
     />
   );
 
-  const steps = [stepOne, stepTwo];
+  const stepThree = (
+    <SolutionStep
+      stepNumber={3}
+      instructions={
+        <p>
+          Solve for <VariableColor>x</VariableColor> by dividing both sides by{' '}
+          <PercentageColor>{percentage / 100}</PercentageColor> to get the{' '}
+          <AnswerColor>answer</AnswerColor>.
+        </p>
+      }
+      calculation={
+        <div className=" flex flex-col items-center text-center pt-2 gap-3">
+          <Equation
+            leftSide={
+              <Fraction
+                numerator={
+                  <>
+                    <s>
+                      <PercentageColor>{percentage / 100}</PercentageColor>
+                    </s>
+                    <VariableColor>x</VariableColor>
+                  </>
+                }
+                denominator={
+                  <s>
+                    <PercentageColor>{percentage / 100}</PercentageColor>
+                  </s>
+                }
+              />
+            }
+            rightSide={
+              <Fraction
+                numerator={
+                  <WholeQuantityColor>{wholeQuantity}</WholeQuantityColor>
+                }
+                denominator={
+                  <PercentageColor>{percentage / 100}</PercentageColor>
+                }
+              />
+            }
+          />
+          <Equation
+            implies
+            leftSide={<VariableColor>x</VariableColor>}
+            rightSide={<AnswerColor>{answer}</AnswerColor>}
+          />
+        </div>
+      }
+    />
+  );
+
+  const steps = [stepOne, stepTwo, stepThree];
 
   return (
-    <section className="flex flex-col items-center w-full h-fit max-w-[500px] gap-8 text-3xl pb-10">
+    <section className="flex flex-col items-center w-full h-fit gap-8 text-3xl pb-10">
       <h2 className=" text-4xl font-bold">Inverse Percentages Practice</h2>
 
       {/* Question statement */}
       <p>
-        <WholeQuantityColor>{wholeQuantity}</WholeQuantityColor> is{' '}
         <PercentageColor>{formatPercentage(percentage)}</PercentageColor> of{' '}
-        <VariableColor>what number</VariableColor>?
+        <VariableColor>what number</VariableColor> is equal to{' '}
+        <WholeQuantityColor>{wholeQuantity}</WholeQuantityColor>?
       </p>
 
       {/* Steps to solve */}
       <section
-        className={` flex flex-col gap-5 transition-all ${
+        className={` flex flex-col gap-16 pb-16 transition-all ${
           numberOfStepsShown === 0 ? 'hidden' : ''
         }`}
       >
@@ -229,7 +305,7 @@ const InversePercentages: React.FC<{}> = () => {
       </section>
 
       {/* Buttons */}
-      <div className="flex flex-col gap-4 w-full">
+      <div className="flex flex-col gap-4 w-full max-w-[500px]">
         {/* Help button */}
         <div className="flex items-center justify-center w-full">
           <button

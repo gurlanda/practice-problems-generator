@@ -2,9 +2,9 @@ import React, { ReactNode } from 'react';
 
 const StyledSpan: React.FC<{
   children: ReactNode;
-  classNames: string;
-}> = ({ children, classNames }) => {
-  return <span className={classNames}>{children}</span>;
+  classes: string;
+}> = ({ children, classes }) => {
+  return <span className={classes}>{children}</span>;
 };
 
 /**
@@ -12,11 +12,14 @@ const StyledSpan: React.FC<{
  * @param classNames The class names used on the produced span.
  * @returns A span element pre-styled with the given class names.
  */
-function styledSpanFactory(
-  classNames: string
-): React.FC<{ children: ReactNode }> {
-  const PreStyledSpan: React.FC<{ children: ReactNode }> = ({ children }) => {
-    return <StyledSpan classNames={classNames}>{children}</StyledSpan>;
+function styledSpanFactory(classes: string): React.FC<{ children: ReactNode }> {
+  const PreStyledSpan: React.FC<{
+    classNames?: string;
+    children: ReactNode;
+  }> = ({ children, classNames }) => {
+    return (
+      <StyledSpan classes={`${classes} ${classNames}`}>{children}</StyledSpan>
+    );
   };
 
   return PreStyledSpan;

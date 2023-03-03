@@ -205,7 +205,7 @@ const Percentages: React.FC<{}> = () => {
   const steps = [stepOne, stepTwo];
 
   return (
-    <section className="flex flex-col items-center w-full h-fit max-w-[500px] gap-8 text-3xl pb-10">
+    <section className="flex flex-col items-center w-full h-fit gap-8 text-3xl pb-10">
       <h2 className=" text-4xl font-bold">Percentages Practice</h2>
 
       {/* Question statement */}
@@ -225,7 +225,7 @@ const Percentages: React.FC<{}> = () => {
       </section>
 
       {/* Buttons */}
-      <div className="flex flex-col gap-4 w-full">
+      <div className="flex flex-col gap-4 w-full max-w-[500px]">
         {/* Help button */}
         <div className="flex items-center justify-center w-full">
           <button

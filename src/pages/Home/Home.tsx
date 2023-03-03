@@ -11,7 +11,9 @@ const Home: React.FC<{}> = () => {
       h-screen w-screen
       bg-cyan-100 overflow-y-auto"
     >
-      <Percentages />
+      <div className="h-full w-full max-w-[600px]">
+        <InversePercentages />
+      </div>
     </section>
   );
 };
