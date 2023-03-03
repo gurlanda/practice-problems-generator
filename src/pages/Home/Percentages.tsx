@@ -57,11 +57,11 @@ const Percentages: React.FC<{}> = () => {
   function answerButtonStyle(): string {
     switch (answerState) {
       case 'Hidden':
-        return 'text-cyan-100 bg-cyan-600 hover:text-cyan-200 hover:bg-cyan-700 active:text-cyan-300 active:bg-cyan-800';
+        return 'text-cyan-50 bg-cyan-600 hover:text-cyan-100 hover:bg-cyan-700 active:text-cyan-200 active:bg-cyan-800';
       case 'LastChance':
-        return 'text-yellow-100 bg-yellow-700 hover:text-yellow-200 hover:bg-yellow-800 active:text-yellow-300 active:bg-yellow-900';
+        return 'text-yellow-50 bg-yellow-700 hover:text-yellow-100 hover:bg-yellow-800 active:text-yellow-200 active:bg-yellow-900';
       default:
-        return 'text-teal-100 bg-teal-600 hover:text-teal-200 hover:bg-teal-700 active:text-teal-300 active:bg-teal-800';
+        return 'text-teal-50 bg-teal-600 hover:text-teal-100 hover:bg-teal-700 active:text-teal-200 active:bg-teal-800';
     }
   }
 
@@ -86,25 +86,26 @@ const Percentages: React.FC<{}> = () => {
   }
 
   return (
-    <section className="flex flex-col items-center gap-10">
+    <section className="flex flex-col items-center w-full max-w-[400px] gap-4">
       <h2 className=" text-4xl font-bold">Percentages Practice</h2>
-      <p className="text-3xl">
+      <p className="text-3xl py-8">
         What is <span>{formatPercentage(percentage)}</span> of{' '}
         <span>{wholeQuantity}</span>?
       </p>
-      <div className="flex items-center justify-center">
+
+      <div className="flex items-center justify-center w-full">
         <button
           className={`
-            px-5 py-4 rounded-xl text-3xl transition-all ease-in-out ${answerButtonStyle()}`}
+            px-5 py-5 w-full rounded-xl text-3xl transition-all ease-in-out ${answerButtonStyle()}`}
           onClick={transitionAnswerState}
         >
           {answerButtonText()}
         </button>
       </div>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center w-full">
         <button
           className={`
-            px-5 py-4 rounded-xl text-3xl transition-all ease-in-out 
+            px-5 py-5 w-full rounded-xl text-3xl transition-all ease-in-out 
             text-emerald-50 bg-emerald-600 
             hover:text-emerald-100 hover:bg-emerald-700 
             active:text-emerald-200 active:bg-emerald-800`}
