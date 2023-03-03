@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/practice-problems-generator/static/css/main.5edde710.css",
-    "main.js": "/practice-problems-generator/static/js/main.d4313041.js",
+    "main.js": "/practice-problems-generator/static/js/main.1a779727.js",
     "static/js/787.c8bf1f47.chunk.js": "/practice-problems-generator/static/js/787.c8bf1f47.chunk.js",
     "index.html": "/practice-problems-generator/index.html",
     "main.5edde710.css.map": "/practice-problems-generator/static/css/main.5edde710.css.map",
-    "main.d4313041.js.map": "/practice-problems-generator/static/js/main.d4313041.js.map",
+    "main.1a779727.js.map": "/practice-problems-generator/static/js/main.1a779727.js.map",
     "787.c8bf1f47.chunk.js.map": "/practice-problems-generator/static/js/787.c8bf1f47.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5edde710.css",
-    "static/js/main.d4313041.js"
+    "static/js/main.1a779727.js"
   ]
 }
