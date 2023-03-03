@@ -3,13 +3,12 @@ import React, { useState } from 'react';
 type AnswerState = 'Hidden' | 'LastChance' | 'Revealed';
 
 function formatPercentage(percentage: number): string {
-  const percentageAsInteger = percentage * 100;
-  return `${percentageAsInteger}%`;
+  return `${percentage}%`;
 }
 
 function rounded(numberToRound: number, numberOfDecimalPlaces: number): number {
   const powerOfTen = Math.pow(10, numberOfDecimalPlaces);
-  const rounded = Math.round(numberToRound * powerOfTen) / powerOfTen;
+  const rounded = Math.floor(numberToRound * powerOfTen) / powerOfTen;
   return rounded;
 }
 
@@ -25,16 +24,15 @@ function randomNumber(startingNumber: number, upperBound: number): number {
 }
 
 function randomWholeQuantity(): number {
-  const startingNumber = 0;
+  const startingNumber = 1;
   const upperBound = 201;
   return Math.floor(randomNumber(startingNumber, upperBound));
 }
 
 function randomPercentage(): number {
-  const startingNumber = 0.01;
-  const upperBound = 2;
-  const rawPercentage = randomNumber(startingNumber, upperBound);
-  return rounded(rawPercentage, 2);
+  const startingNumber = 1;
+  const upperBound = 201;
+  return Math.floor(randomNumber(startingNumber, upperBound));
 }
 
 const Percentages: React.FC<{}> = () => {
@@ -44,7 +42,7 @@ const Percentages: React.FC<{}> = () => {
   );
   const [percentage, setPercentage] = useState<number>(randomPercentage());
 
-  const answer = rounded(wholeQuantity * percentage, 2);
+  const answer = rounded(wholeQuantity * (percentage / 100), 2);
   function answerButtonText(): string {
     switch (answerState) {
       case 'Hidden':
