@@ -1,5 +1,5 @@
 import React from 'react';
-import Percentages from './Percentages';
+import Percentages from './Percentages/Percentages';
 
 const Home: React.FC<{}> = () => {
   return (

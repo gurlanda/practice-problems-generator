@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SolutionStep from '../../../components/SolutionStep';
 
 type AnswerState = 'Hidden' | 'LastChance' | 'Revealed';
 
@@ -110,36 +111,46 @@ const Percentages: React.FC<{}> = () => {
   }
 
   const stepOne = (
-    <div className="flex flex-col gap-2">
-      <h3 className="font-bold">Step 1</h3>
-      <p>
-        Convert the <span className={percentageColor}>percentage</span> to a
-        decimal by dividing it by 100.
-      </p>
-      <p className=" text-center pt-2">
-        <span className={percentageColor}>{formatPercentage(percentage)}</span>{' '}
-        <i className="fa-solid fa-arrow-right-long"></i>{' '}
-        <span className={percentageColor}>{percentage / 100}</span>
-      </p>
-    </div>
+    <SolutionStep
+      stepNumber={1}
+      instructions={
+        <p>
+          Convert the <span className={percentageColor}>percentage</span> to a
+          decimal by dividing it by 100.
+        </p>
+      }
+      calculation={
+        <p className=" text-center pt-2">
+          <span className={percentageColor}>
+            {formatPercentage(percentage)}
+          </span>{' '}
+          <i className="fa-solid fa-arrow-right-long"></i>{' '}
+          <span className={percentageColor}>{percentage / 100}</span>
+        </p>
+      }
+    />
   );
 
   const stepTwo = (
-    <div className="flex flex-col gap-2">
-      <h3 className="font-bold">Step 2</h3>
-      <p>
-        Multiply this <span className={percentageColor}>new decimal</span> by
-        the <span className={wholeQuantityColor}>other number</span> to get the{' '}
-        <span className={answerColor}>answer</span>.
-      </p>
-      <p className=" text-center pt-2">
-        <span className={percentageColor}>{percentage / 100}</span>{' '}
-        <i className="fa-solid fa-xmark"></i>{' '}
-        <span className={wholeQuantityColor}>{wholeQuantity}</span>{' '}
-        <i className="fa-solid fa-equals"></i>{' '}
-        <span className={answerColor}>{answer}</span>
-      </p>
-    </div>
+    <SolutionStep
+      stepNumber={2}
+      instructions={
+        <p>
+          Multiply this <span className={percentageColor}>new decimal</span> by
+          the <span className={wholeQuantityColor}>other number</span> to get
+          the <span className={answerColor}>answer</span>.
+        </p>
+      }
+      calculation={
+        <p className=" text-center pt-2">
+          <span className={percentageColor}>{percentage / 100}</span>{' '}
+          <i className="fa-solid fa-xmark"></i>{' '}
+          <span className={wholeQuantityColor}>{wholeQuantity}</span>{' '}
+          <i className="fa-solid fa-equals"></i>{' '}
+          <span className={answerColor}>{answer}</span>
+        </p>
+      }
+    />
   );
 
   const steps = [stepOne, stepTwo];
