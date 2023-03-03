@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import SolutionStep from '../../../components/SolutionStep';
+import React, { ReactNode, useState } from 'react';
 import styledSpanFactory from '../../../components/styledSpanFactory';
+import SolutionStep from '../../../components/SolutionStep';
 
 /**
  * Return a formatted percentage string.
@@ -54,7 +54,7 @@ function randomPercentage(): number {
   return Math.floor(randomNumber(startingNumber, upperBound));
 }
 
-const Percentages: React.FC<{}> = () => {
+const InversePercentages: React.FC<{}> = () => {
   // Determines whether or not the answer is shown.
   type AnswerState = 'Hidden' | 'LastChance' | 'Revealed';
   const [answerState, setAnswerState] = useState<AnswerState>('Hidden');
@@ -68,13 +68,17 @@ const Percentages: React.FC<{}> = () => {
   const [percentage, setPercentage] = useState<number>(randomPercentage());
   const [numberOfStepsShown, setNumberOfStepsShown] = useState<number>(0);
 
-  const answer = rounded(wholeQuantity * (percentage / 100), 2);
+  const inversePercentage = 1 / (percentage / 100);
+  const answer = rounded(wholeQuantity * inversePercentage, 2);
 
   const percentageColor = 'text-red-500';
   const PercentageColor = styledSpanFactory(percentageColor);
 
   const wholeQuantityColor = 'text-green-500';
   const WholeQuantityColor = styledSpanFactory(wholeQuantityColor);
+
+  const variableColor = 'text-orange-500';
+  const VariableColor = styledSpanFactory(variableColor);
 
   const answerColor = 'text-cyan-600';
   const AnswerColor = styledSpanFactory(answerColor);
@@ -206,13 +210,13 @@ const Percentages: React.FC<{}> = () => {
 
   return (
     <section className="flex flex-col items-center w-full h-fit max-w-[500px] gap-8 text-3xl pb-10">
-      <h2 className=" text-4xl font-bold">Percentages Practice</h2>
+      <h2 className=" text-4xl font-bold">Inverse Percentages Practice</h2>
 
       {/* Question statement */}
       <p>
-        What is{' '}
+        <WholeQuantityColor>{wholeQuantity}</WholeQuantityColor> is{' '}
         <PercentageColor>{formatPercentage(percentage)}</PercentageColor> of{' '}
-        <WholeQuantityColor>{wholeQuantity}</WholeQuantityColor>?
+        <VariableColor>what number</VariableColor>?
       </p>
 
       {/* Steps to solve */}
@@ -269,4 +273,4 @@ const Percentages: React.FC<{}> = () => {
   );
 };
 
-export default Percentages;
+export default InversePercentages;
