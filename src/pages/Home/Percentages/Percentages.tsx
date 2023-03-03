@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Equation from '../../../components/math/Equation';
 import SolutionStep from '../../../components/SolutionStep';
 import styledSpanFactory from '../../../components/styledSpanFactory';
 
@@ -191,13 +192,16 @@ const Percentages: React.FC<{}> = () => {
         </p>
       }
       calculation={
-        <p className=" text-center pt-2">
-          <PercentageColor>{percentage / 100}</PercentageColor>{' '}
-          <i className="fa-solid fa-xmark"></i>{' '}
-          <WholeQuantityColor>{wholeQuantity}</WholeQuantityColor>{' '}
-          <i className="fa-solid fa-equals"></i>{' '}
-          <AnswerColor>{answer}</AnswerColor>
-        </p>
+        <Equation
+          leftSide={
+            <span>
+              <PercentageColor>{percentage / 100}</PercentageColor>{' '}
+              <i className="fa-solid fa-xmark"></i>{' '}
+              <WholeQuantityColor>{wholeQuantity}</WholeQuantityColor>
+            </span>
+          }
+          rightSide={<AnswerColor>{answer}</AnswerColor>}
+        />
       }
     />
   );
