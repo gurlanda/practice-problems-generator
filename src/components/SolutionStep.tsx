@@ -14,9 +14,7 @@ const SolutionStep: React.FC<{
       {calculationIsShown ? (
         <div className=" min-h-[75px]">{calculation}</div>
       ) : (
-        <div
-          className={`flex justify-center w-full  min-h-[75px] cursor-pointer`}
-        >
+        <div className={`flex justify-center w-full  min-h-[75px]`}>
           <button
             className=" px-6 py-4 rounded-xl text-white text-center
         bg-slate-400 bg-opacity-50
