@@ -1,5 +1,9 @@
 import React, { ReactNode, useState } from 'react';
 
+/*
+  This component is used to render a solution step. 
+  The calculation is initially hidden until shown by the user.
+*/
 const SolutionStep: React.FC<{
   stepNumber: number;
   instructions: ReactNode;

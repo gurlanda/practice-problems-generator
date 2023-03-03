@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
 import SolutionStep from '../../../components/SolutionStep';
 
-type AnswerState = 'Hidden' | 'LastChance' | 'Revealed';
-
+/**
+ * Return a formatted percentage string.
+ * @param percentage The percentage to format, as an integer.
+ * @returns The formatted percentage string.
+ */
 function formatPercentage(percentage: number): string {
   return `${percentage}%`;
 }
 
+/**
+ * Rounds a number to a given number of decimal places.
+ * @param numberToRound The number to round.
+ * @param numberOfDecimalPlaces The number of decimal places to round to.
+ * @returns The rounded number.
+ */
 function rounded(numberToRound: number, numberOfDecimalPlaces: number): number {
   const powerOfTen = Math.pow(10, numberOfDecimalPlaces);
   const rounded = Math.floor(numberToRound * powerOfTen) / powerOfTen;
@@ -24,12 +33,20 @@ function randomNumber(startingNumber: number, upperBound: number): number {
   return Math.random() * range + startingNumber;
 }
 
+/**
+ * Used to randomly initialize wholeQuantity as an integer within the range [1, 200].
+ * @returns A random number within the range [1, 200].
+ */
 function randomWholeQuantity(): number {
   const startingNumber = 1;
   const upperBound = 201;
   return Math.floor(randomNumber(startingNumber, upperBound));
 }
 
+/**
+ * Used to randomly initialize the percentage as an integer within the range [1, 200].
+ * @returns A random number within the range [1, 200].
+ */
 function randomPercentage(): number {
   const startingNumber = 1;
   const upperBound = 201;
@@ -37,18 +54,29 @@ function randomPercentage(): number {
 }
 
 const Percentages: React.FC<{}> = () => {
+  // Determines whether or not the answer is shown.
+  type AnswerState = 'Hidden' | 'LastChance' | 'Revealed';
   const [answerState, setAnswerState] = useState<AnswerState>('Hidden');
+
+  // The quantity to take a percentage of.
   const [wholeQuantity, setWholeQuantity] = useState<number>(
     randomWholeQuantity()
   );
+
+  // The percentage used in the problem.
   const [percentage, setPercentage] = useState<number>(randomPercentage());
   const [numberOfStepsShown, setNumberOfStepsShown] = useState<number>(0);
+
+  const answer = rounded(wholeQuantity * (percentage / 100), 2);
 
   const percentageColor = 'text-red-500';
   const wholeQuantityColor = 'text-green-500';
   const answerColor = 'text-cyan-600';
 
-  const answer = rounded(wholeQuantity * (percentage / 100), 2);
+  /**
+   * Generates the text used in the answer button.
+   * @returns The text used in the answer button.
+   */
   function answerButtonText(): string {
     switch (answerState) {
       case 'Hidden':
@@ -60,6 +88,10 @@ const Percentages: React.FC<{}> = () => {
     }
   }
 
+  /**
+   * Generates the text used in the help button.
+   * @returns The text used in the help button.
+   */
   function helpButtonText(): string {
     if (numberOfStepsShown === 0) {
       return 'Help';
@@ -70,6 +102,10 @@ const Percentages: React.FC<{}> = () => {
     }
   }
 
+  /**
+   * Generates the background color and text color of the answer button. The color depends on how many times the user has clicked the button.
+   * @returns The background color and text color used for the answer button.
+   */
   function answerButtonStyle(): string {
     switch (answerState) {
       case 'Hidden':
@@ -81,6 +117,9 @@ const Percentages: React.FC<{}> = () => {
     }
   }
 
+  /**
+   * Transition the answerState to the next state.
+   */
   function transitionAnswerState() {
     switch (answerState) {
       case 'Hidden':
@@ -95,6 +134,9 @@ const Percentages: React.FC<{}> = () => {
     }
   }
 
+  /**
+   * Randomly generate a new question and reset the state of this component.
+   */
   function generateNewQuestion() {
     setWholeQuantity(randomWholeQuantity());
     setPercentage(randomPercentage());
@@ -102,6 +144,9 @@ const Percentages: React.FC<{}> = () => {
     setNumberOfStepsShown(0);
   }
 
+  /**
+   * Show the next hint. If all the hints are shown, then hide all the hints.
+   */
   function showNextStep() {
     const nextNumStepsShown = (numberOfStepsShown + 1) % (steps.length + 1);
     console.dir({
@@ -156,7 +201,7 @@ const Percentages: React.FC<{}> = () => {
   const steps = [stepOne, stepTwo];
 
   return (
-    <section className="flex flex-col items-center w-full h-screen max-w-[500px] gap-8 text-3xl">
+    <section className="flex flex-col items-center w-full h-fit max-w-[500px] gap-8 text-3xl pb-10">
       <h2 className=" text-4xl font-bold">Percentages Practice</h2>
 
       {/* Question statement */}
@@ -177,6 +222,7 @@ const Percentages: React.FC<{}> = () => {
 
       {/* Buttons */}
       <div className="flex flex-col gap-4 w-full">
+        {/* Help button */}
         <div className="flex items-center justify-center w-full">
           <button
             className={`
@@ -189,6 +235,8 @@ const Percentages: React.FC<{}> = () => {
             {helpButtonText()}
           </button>
         </div>
+
+        {/* Answer button */}
         <div className="flex items-center justify-center w-full">
           <button
             className={`
@@ -198,6 +246,8 @@ const Percentages: React.FC<{}> = () => {
             {answerButtonText()}
           </button>
         </div>
+
+        {/* New question button */}
         <div className="flex items-center justify-center w-full">
           <button
             className={`
