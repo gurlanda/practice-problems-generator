@@ -41,6 +41,11 @@ const Percentages: React.FC<{}> = () => {
     randomWholeQuantity()
   );
   const [percentage, setPercentage] = useState<number>(randomPercentage());
+  const [numberOfStepsShown, setNumberOfStepsShown] = useState<number>(0);
+
+  const percentageColor = 'text-red-500';
+  const wholeQuantityColor = 'text-green-500';
+  const answerColor = 'text-cyan-600';
 
   const answer = rounded(wholeQuantity * (percentage / 100), 2);
   function answerButtonText(): string {
@@ -51,6 +56,16 @@ const Percentages: React.FC<{}> = () => {
         return 'Click again to reveal answer';
       default:
         return `Answer: ${answer}`;
+    }
+  }
+
+  function helpButtonText(): string {
+    if (numberOfStepsShown === 0) {
+      return 'Help';
+    } else if (numberOfStepsShown === steps.length) {
+      return 'Hide Steps';
+    } else {
+      return 'Next Step';
     }
   }
 
@@ -83,36 +98,107 @@ const Percentages: React.FC<{}> = () => {
     setWholeQuantity(randomWholeQuantity());
     setPercentage(randomPercentage());
     setAnswerState('Hidden');
+    setNumberOfStepsShown(0);
   }
 
+  function showNextStep() {
+    const nextNumStepsShown = (numberOfStepsShown + 1) % (steps.length + 1);
+    console.dir({
+      nextNumStepsShown,
+    });
+    setNumberOfStepsShown(nextNumStepsShown);
+  }
+
+  const stepOne = (
+    <div className="flex flex-col gap-2">
+      <h3 className="font-bold">Step 1</h3>
+      <p>
+        Convert the <span className={percentageColor}>percentage</span> to a
+        decimal by dividing it by 100.
+      </p>
+      <p className=" text-center pt-2">
+        <span className={percentageColor}>{formatPercentage(percentage)}</span>{' '}
+        <i className="fa-solid fa-arrow-right-long"></i>{' '}
+        <span className={percentageColor}>{percentage / 100}</span>
+      </p>
+    </div>
+  );
+
+  const stepTwo = (
+    <div className="flex flex-col gap-2">
+      <h3 className="font-bold">Step 2</h3>
+      <p>
+        Multiply this <span className={percentageColor}>new decimal</span> by
+        the <span className={wholeQuantityColor}>other number</span> to get the{' '}
+        <span className={answerColor}>answer</span>.
+      </p>
+      <p className=" text-center pt-2">
+        <span className={percentageColor}>{percentage / 100}</span>{' '}
+        <i className="fa-solid fa-xmark"></i>{' '}
+        <span className={wholeQuantityColor}>{wholeQuantity}</span>{' '}
+        <i className="fa-solid fa-equals"></i>{' '}
+        <span className={answerColor}>{answer}</span>
+      </p>
+    </div>
+  );
+
+  const steps = [stepOne, stepTwo];
+
   return (
-    <section className="flex flex-col items-center w-full max-w-[400px] gap-4">
+    <section className="flex flex-col items-center w-full h-screen max-w-[500px] gap-8 text-3xl">
       <h2 className=" text-4xl font-bold">Percentages Practice</h2>
-      <p className="text-3xl py-8">
-        What is <span>{formatPercentage(percentage)}</span> of{' '}
-        <span>{wholeQuantity}</span>?
+
+      {/* Question statement */}
+      <p>
+        What is{' '}
+        <span className={percentageColor}>{formatPercentage(percentage)}</span>{' '}
+        of <span className={wholeQuantityColor}>{wholeQuantity}</span>?
       </p>
 
-      <div className="flex items-center justify-center w-full">
-        <button
-          className={`
-            px-5 py-5 w-full rounded-xl text-3xl transition-all ease-in-out ${answerButtonStyle()}`}
-          onClick={transitionAnswerState}
-        >
-          {answerButtonText()}
-        </button>
-      </div>
-      <div className="flex items-center justify-center w-full">
-        <button
-          className={`
-            px-5 py-5 w-full rounded-xl text-3xl transition-all ease-in-out 
+      {/* Steps to solve */}
+      <section
+        className={` flex flex-col gap-5 transition-all ${
+          numberOfStepsShown === 0 ? 'hidden' : ''
+        }`}
+      >
+        {steps.filter((value, index) => index < numberOfStepsShown)}
+      </section>
+
+      {/* Buttons */}
+      <div className="flex flex-col gap-4 w-full">
+        <div className="flex items-center justify-center w-full">
+          <button
+            className={`
+            px-5 py-5 w-full rounded-xl transition-all ease-in-out 
+            text-blue-50 bg-blue-600 
+            hover:text-blue-100 hover:bg-blue-700 
+            active:text-blue-200 active:bg-blue-800`}
+            onClick={showNextStep}
+          >
+            {helpButtonText()}
+          </button>
+        </div>
+        <div className="flex items-center justify-center w-full">
+          <button
+            className={`
+            px-5 py-5 w-full rounded-xl transition-all ease-in-out ${answerButtonStyle()}`}
+            onClick={transitionAnswerState}
+          >
+            {answerButtonText()}
+          </button>
+        </div>
+        <div className="flex items-center justify-center w-full">
+          <button
+            className={`
+            px-5 py-5 w-full rounded-xl transition-all ease-in-out 
             text-emerald-50 bg-emerald-600 
             hover:text-emerald-100 hover:bg-emerald-700 
             active:text-emerald-200 active:bg-emerald-800`}
-          onClick={generateNewQuestion}
-        >
-          Generate New Question
-        </button>
+            onClick={generateNewQuestion}
+          >
+            New Question
+          </button>
+        </div>
       </div>
     </section>
   );

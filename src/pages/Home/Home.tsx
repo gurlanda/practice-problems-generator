@@ -8,7 +8,7 @@ const Home: React.FC<{}> = () => {
       flex justify-center
       px-24 py-28
       h-screen w-screen
-      bg-cyan-100"
+      bg-cyan-100 overflow-y-auto"
     >
       <Percentages />
     </section>
