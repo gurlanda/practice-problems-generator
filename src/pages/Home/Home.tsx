@@ -6,7 +6,7 @@ const Home: React.FC<{}> = () => {
     <section
       className=" 
       flex justify-center
-      px-24 py-28
+      px-10 py-10
       h-screen w-screen
       bg-cyan-100 overflow-y-auto"
     >
