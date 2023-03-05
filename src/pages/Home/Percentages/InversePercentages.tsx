@@ -168,6 +168,7 @@ const InversePercentages: React.FC<{}> = () => {
   const AnswerColor = styledSpanFactory(answerColor);
 
   const multiplicationColor = 'text-purple-500';
+  const multiplicationColor_decoration = 'decoration-purple-500';
   const MultiplicationColor = styledSpanFactory(multiplicationColor);
 
   const stepOne = (
@@ -198,10 +199,9 @@ const InversePercentages: React.FC<{}> = () => {
           <br />
           <br />
           If you see the phrase "
-          <em>
-            <PercentageColor>Percent</PercentageColor>
+          <em className={` underline ${multiplicationColor_decoration}`}>
+            <PercentageColor>Percent</PercentageColor> of
           </em>{' '}
-          <MultiplicationColor>of</MultiplicationColor>{' '}
           <VariableColor>what number</VariableColor>," then you are{' '}
           <MultiplicationColor>multiplying</MultiplicationColor> the{' '}
           <PercentageColor>percentage (as a decimal)</PercentageColor> with an{' '}
