@@ -1,20 +1,19 @@
 import React from 'react';
 import DividendBlock from './DividendBlock';
-import LDSubtractionBlock from './LDSubtractionBlock';
+import LDSubtractionBlock, {
+  LDSubtractionBlockData,
+} from './LDSubtractionBlock';
 import HighlightedNumber from '../HighlightedNumber';
 import wrapDigitsInComponents from '../wrapDigitsInComponents';
-import gridGap from './gridGap';
 
 const LongDivision: React.FC<{
   divisor: HighlightedNumber;
   dividend: HighlightedNumber;
   quotient?: { value: HighlightedNumber; endingColumn: number };
-  subtractionBlocks?: {
-    subtrahend: HighlightedNumber;
-    difference: HighlightedNumber;
-    endingColumn: number;
-  }[];
+  subtractionBlocks?: LDSubtractionBlockData[];
 }> = ({ divisor, dividend, quotient, subtractionBlocks }) => {
+  const columnGap = '5px';
+
   const divisorDigits = divisor.digits;
   const dividendDigits = dividend.digits;
 
@@ -34,7 +33,7 @@ const LongDivision: React.FC<{
           frameHeight + rowsFilledBySubtractionBlocks
         }, minmax(0, 1fr))`,
         gridTemplateColumns: `repeat(${numberOfColumns}, minmax(0, 1fr))`,
-        gap: gridGap,
+        columnGap: columnGap,
         maxWidth: 'max-content',
       }}
     >
@@ -57,6 +56,7 @@ const LongDivision: React.FC<{
         <LDSubtractionBlock
           subtrahend={block.subtrahend}
           difference={block.difference}
+          differenceOverflow={block.differenceOverflow}
           endingRow={frameHeight + (index + 1) * 2}
           endingColumn={block.endingColumn}
         />

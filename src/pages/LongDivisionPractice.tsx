@@ -197,7 +197,8 @@ const InversePercentages: React.FC<{}> = () => {
               {
                 subtrahend: new HighlightedNumber(12),
                 difference: new HighlightedNumber(4),
-                endingColumn: 5,
+                differenceOverflow: new HighlightedNumber(8),
+                endingColumn: 6,
               },
               {
                 subtrahend: new HighlightedNumber(48),
