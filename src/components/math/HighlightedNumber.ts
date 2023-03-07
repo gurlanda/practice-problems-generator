@@ -1,11 +1,11 @@
-import HighlighedIndices from './HighlightedIndices';
+import IndexRange from './IndexRange';
 
 class HighlightedNumber {
   value: number;
   start?: number;
   end?: number;
 
-  constructor(value: number, highlightedIndices?: HighlighedIndices) {
+  constructor(value: number, highlightedIndices?: IndexRange) {
     this.value = value;
 
     if (!highlightedIndices) {
@@ -26,15 +26,15 @@ class HighlightedNumber {
     this.end = end;
   }
 
-  get highlightedIndices(): HighlighedIndices | undefined {
+  get highlightedIndices(): IndexRange | undefined {
     if (this.start === undefined || this.end === undefined) {
       return undefined;
     }
 
-    return new HighlighedIndices(this.start, this.end);
+    return new IndexRange(this.start, this.end);
   }
 
-  set highlightedIndices(highlightedIndices: HighlighedIndices | undefined) {
+  set highlightedIndices(highlightedIndices: IndexRange | undefined) {
     this.start = highlightedIndices?.start ?? undefined;
     this.end = highlightedIndices?.end ?? undefined;
   }

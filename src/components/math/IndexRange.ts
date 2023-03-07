@@ -1,4 +1,4 @@
-class HighlighedIndices {
+class IndexRange {
   start: number;
   end: number;
 
@@ -34,4 +34,4 @@ class HighlighedIndices {
   }
 }
 
-export default HighlighedIndices;
+export default IndexRange;

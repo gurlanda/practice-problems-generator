@@ -1,12 +1,9 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styledSpanFactory from 'components/styledSpanFactory';
 import SolutionStep from 'components/SolutionStep';
-import Fraction from 'components/math/Fraction';
-import Equation from 'components/math/Equation';
-import LongSubtraction from 'components/math/LongSubtraction';
 import LongDivision from 'components/math/LongDivision/LongDivision';
 import HighlightedNumber from 'components/math/HighlightedNumber';
-import HighlightedIndices from 'components/math/HighlightedIndices';
+import IndexRange from 'components/math/IndexRange';
 
 /**
  * Rounds a number to a given number of decimal places.
@@ -190,10 +187,10 @@ const InversePercentages: React.FC<{}> = () => {
       calculation={
         <p className=" flex justify-center pt-2">
           <LongDivision
-            dividend={new HighlightedNumber(168, new HighlightedIndices(2, 2))}
+            dividend={new HighlightedNumber(168, new IndexRange(2))}
             divisor={new HighlightedNumber(12)}
             quotient={{
-              value: new HighlightedNumber(14, new HighlightedIndices(0, 0)),
+              value: new HighlightedNumber(14, new IndexRange(0)),
               endingColumn: 6,
             }}
             subtractionBlocks={[
