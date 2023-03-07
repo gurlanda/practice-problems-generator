@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Equation from '../../../components/math/Equation';
-import SolutionStep from '../../../components/SolutionStep';
-import styledSpanFactory from '../../../components/styledSpanFactory';
+import Equation from 'components/math/Equation';
+import SolutionStep from 'components/SolutionStep';
+import styledSpanFactory from 'components/styledSpanFactory';
 
 /**
  * Return a formatted percentage string.
