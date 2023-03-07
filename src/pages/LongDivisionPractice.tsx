@@ -4,7 +4,7 @@ import SolutionStep from 'components/SolutionStep';
 import Fraction from 'components/math/Fraction';
 import Equation from 'components/math/Equation';
 import LongSubtraction from 'components/math/LongSubtraction';
-import LongDivision from 'components/math/LongDivision';
+import LongDivision from 'components/math/LongDivision/LongDivision';
 import HighlightedNumber from 'components/math/HighlightedNumber';
 import HighlightedIndices from 'components/math/HighlightedIndices';
 
